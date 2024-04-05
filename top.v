@@ -123,7 +123,8 @@ module apb_to_i2c_top
 		.i2c_scl(i2c_scl),
 		.i2c_ready(reg_status[3]),
 		.fifo_tx_rd_en(fifo_tx_rd_en),
-		.fifo_rx_wr_en(fifo_rx_wr_en)
+		.fifo_rx_wr_en(fifo_rx_wr_en),
+		.i2c_repeat_start(reg_command[2])
 	);
 
 	i2c_slave_model i2c_slave(

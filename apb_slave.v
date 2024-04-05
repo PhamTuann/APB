@@ -32,7 +32,7 @@ module apb_slave
 	//4	read_reset_n_rx				rx_empty
 	//3	i2c_reset				i2c_ready
 	//2	i2c_enable
-	//1	
+	//1	i2c_repeat_start
 	//0
 	always @(posedge PCLK or negedge PRESETn) begin
  		if(!PRESETn) begin
