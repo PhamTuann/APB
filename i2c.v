@@ -11,7 +11,7 @@ module i2c_master(
 	inout i2c_sda,
 	inout wire i2c_scl,
 	input i2c_repeat_start,
-	
+	input fifo_tx_empty,
 	//control fifo
 	output reg fifo_tx_rd_en,
 	output reg fifo_rx_wr_en 
@@ -38,6 +38,7 @@ module i2c_master(
 	reg i2c_scl_enable = 0;
 	reg i2c_clk = 1;
 	reg status;
+	reg count_done;
 
 	assign i2c_ready = ((i2c_reset_n == 1) && (state == IDLE)) ? 1 : 0;
 	assign i2c_scl = (i2c_scl_enable == 0 ) ? 1 : i2c_clk;
@@ -78,7 +79,7 @@ module i2c_master(
 				end
 			WRITE_DATA: status <= 0;
 			READ_ACK2: begin
-				if (i2c_sda == 0) begin
+				if (i2c_sda == 0 && !fifo_tx_empty) begin
 						fifo_tx_rd_en <= 1;
 						status <= 1;
 					end
@@ -94,6 +95,7 @@ module i2c_master(
 			state <= IDLE;
 			fifo_tx_rd_en <= 0;
 			fifo_rx_wr_en <= 0;
+			count_done <= 0;
 		end		
 		else begin
 			case(state)
@@ -134,11 +136,16 @@ module i2c_master(
 				READ_ACK2: begin
 					if (i2c_sda == 0) begin
 					 	state <= WRITE_DATA;
-						counter <= 7;
+						counter <= 7;	
+						if(fifo_tx_empty) count_done <= 1;
+						if(count_done) begin
+							count_done <= 0;
+							state <= STOP;
+						end
 					end
 					else begin
 						if(i2c_repeat_start) begin
-							state <= START;
+							state <= IDLE;
 						end
 						state <= STOP;
 					end
@@ -188,6 +195,9 @@ module i2c_master(
 				WRITE_DATA: begin 
 					write_enable <= 1;
 					sda_out <= i2c_data_in[counter];
+				end
+				READ_ACK2: begin
+					write_enable <= 0;				
 				end
 				
 				WRITE_ACK: begin

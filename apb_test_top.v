@@ -60,7 +60,7 @@ module apb_test_top;
 		 //transmit RESET
 		#2
 		PADDR = 2;
-		PWDATA = 8'b11110100;
+		PWDATA = 8'b11110110;
 		PWRITE = 1; 
 		PSELx = 1;
 		#2
@@ -82,7 +82,7 @@ module apb_test_top;
 		//transmit data 1
 		#2
 		PADDR = 4;
-		PWDATA = 8'b10101010;
+		PWDATA = 8'b00000000;
 		PWRITE = 1; 
 		PSELx = 1;
 		#2
@@ -93,7 +93,7 @@ module apb_test_top;
 		//transmit data 2 
 		#2
 		PADDR = 4;
-		PWDATA = 8'b00001111;
+		PWDATA = 8'b00000001;
 		PWRITE = 1; 
 		PSELx = 1;
 		#2
@@ -104,19 +104,7 @@ module apb_test_top;
 		//transmit data 3
 		#2
 		PADDR = 4;
-		PWDATA = 8'b11001100;
-		PWRITE = 1; 
-		PSELx = 1;
-		#2
-		PENABLE = 1;
-		#2
-		PENABLE = 0;
-		PSELx = 0;
-		//test
-		//transmit data 4
-		#2
-		PADDR = 4;
-		PWDATA = 8'b00011110;
+		PWDATA = 8'b00000010;
 		PWRITE = 1; 
 		PSELx = 1;
 		#2
@@ -127,7 +115,51 @@ module apb_test_top;
 		//transmit data 4
 		#2
 		PADDR = 4;
-		PWDATA = 8'b10101110;
+		PWDATA = 8'b00000011;
+		PWRITE = 1; 
+		PSELx = 1;
+		#2
+		PENABLE = 1;
+		#2
+		PENABLE = 0;
+		PSELx = 0;
+		//transmit data 5
+		#2
+		PADDR = 4;
+		PWDATA = 8'b00000100;
+		PWRITE = 1; 
+		PSELx = 1;
+		#2
+		PENABLE = 1;
+		#2
+		PENABLE = 0;
+		PSELx = 0;
+		//transmit data 6
+		#2
+		PADDR = 4;
+		PWDATA = 8'b00000101;
+		PWRITE = 1; 
+		PSELx = 1;
+		#2
+		PENABLE = 1;
+		#2
+		PENABLE = 0;
+		PSELx = 0;
+		//transmit data 7
+		#2
+		PADDR = 4;
+		PWDATA = 8'b00000110;
+		PWRITE = 1; 
+		PSELx = 1;
+		#2
+		PENABLE = 1;
+		#2
+		PENABLE = 0;
+		PSELx = 0;
+		//transmit data 8
+		#2
+		PADDR = 4;
+		PWDATA = 8'b00000111;
 		PWRITE = 1; 
 		PSELx = 1;
 		#2
@@ -162,28 +194,7 @@ module apb_test_top;
 		#16
 		sda_in = 1;*/
 		//transmit address
-		#250
-		PADDR = 6;
-		PWDATA = 8'b01010101;
-		PWRITE = 1; 
-		PSELx = 1;
-		#2
-		PENABLE = 1;
-		#2
-		PENABLE = 0;
-		PSELx = 0;
-		//receive data
-		#250
-		PADDR = 5;
-		PWDATA = 8'b01010101;
-		PWRITE = 0; 
-		PSELx = 1;
-		#2
-		PENABLE = 1;
-		#2
-		PENABLE = 0;
-		PSELx = 0;
-		#1000
+		#5000
 		$finish;
 	end   
 	

@@ -48,6 +48,7 @@ module apb_to_i2c_top
 	wire fifo_tx_rd_en;
 	wire fifo_rx_wr_en;
 	wire i2c_enable;
+	wire fifo_tx_empty;
 	
 	//signal
 	reg [7:0] pre_i2c_data_in;
@@ -124,7 +125,8 @@ module apb_to_i2c_top
 		.i2c_ready(reg_status[3]),
 		.fifo_tx_rd_en(fifo_tx_rd_en),
 		.fifo_rx_wr_en(fifo_rx_wr_en),
-		.i2c_repeat_start(reg_command[2])
+		.i2c_repeat_start(reg_command[2]),
+		.fifo_tx_empty(reg_status[6])
 	);
 
 	i2c_slave_model i2c_slave(
