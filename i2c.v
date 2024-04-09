@@ -12,6 +12,7 @@ module i2c_master(
 	inout wire i2c_scl,
 	input i2c_repeat_start,
 	input fifo_tx_empty,
+	input fifo_rx_full,
 	//control fifo
 	output reg fifo_tx_rd_en,
 	output reg fifo_rx_wr_en 
@@ -166,9 +167,9 @@ module i2c_master(
 						state <= IDLE;
 					end
 					else if (i2c_sda == 0) begin
-							state <= WRITE_DATA;
+							state <= READ_DATA;
 							counter <= 7;	
-							if(fifo_tx_empty) count_done <= 1;
+							if(fifo_rx_full) count_done <= 1;
 							if(count_done) begin
 								count_done <= 0;
 								state <= STOP;

@@ -60,7 +60,7 @@ module apb_test_top;
 		 //transmit RESET
 		#2
 		PADDR = 2;
-		PWDATA = 8'b11110110;
+		PWDATA = 8'b11110100;
 		PWRITE = 1; 
 		PSELx = 1;
 		#2
@@ -178,10 +178,11 @@ module apb_test_top;
 		#2
 		PENABLE = 0;
 		PSELx = 0;
-		/*//transmit i2c_enable 
-		#200
-		PADDR = 2;
-		PWDATA = 8'b11111100;
+		//transmit i2c_enable 
+		#1000
+		#2
+		PADDR = 6;
+		PWDATA = 8'b00100001;
 		PWRITE = 1; 
 		PSELx = 1;
 		#2
@@ -189,11 +190,29 @@ module apb_test_top;
 		#2
 		PENABLE = 0;
 		PSELx = 0;
-		#116
-		sda_in = 0;
-		#16
-		sda_in = 1;*/
+		#2
+		PADDR = 2;
+		PWDATA = 8'b11111010;
+		PWRITE = 1; 
+		PSELx = 1;
+		#2
+		PENABLE = 1;
+		#2
+		PENABLE = 0;
+		PSELx = 0;
+		#60
+		PADDR = 2;
+		PWDATA = 8'b11111000;
+		PWRITE = 1; 
+		PSELx = 1;
+		#2
+		PENABLE = 1;
+		#2
+		PENABLE = 0;
+		PSELx = 0;
+
 		//transmit address
+		
 		#5000
 		$finish;
 	end   

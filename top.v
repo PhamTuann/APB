@@ -59,7 +59,7 @@ module apb_to_i2c_top
 	reg pre_data_i2c_to_fifo;
 
 	// bit no use
-	assign reg_command[1:0] = 2'b00;
+	assign reg_command[0] = 1'b0;
 	assign reg_status[2:0] = 3'b000;
 	
 	//connect module
@@ -125,8 +125,9 @@ module apb_to_i2c_top
 		.i2c_ready(reg_status[3]),
 		.fifo_tx_rd_en(fifo_tx_rd_en),
 		.fifo_rx_wr_en(fifo_rx_wr_en),
-		.i2c_repeat_start(reg_command[2]),
-		.fifo_tx_empty(reg_status[6])
+		.i2c_repeat_start(reg_command[1]),
+		.fifo_tx_empty(reg_status[6]),
+		.fifo_rx_full(reg_status[5])
 	);
 
 	i2c_slave_model i2c_slave(
@@ -141,7 +142,14 @@ module apb_to_i2c_top
 			pre_i2c_data_in <= data_fifo_to_i2c;
 	end
 
-	assign delete_reg_command = fifo_tx_rd_en; 
+	assign delete_reg_command = c; 
+	always@ (posedge clk) begin
+		if (reg_command[2] && !reg_status[3]) begin
+			c <= 1;
+		end
+		else c <= 0;
+			
+	end
 	assign i2c_enable = pre_i2c_enable;
 	always@ (posedge clk) begin
 		if(reg_command[2] == 1) begin

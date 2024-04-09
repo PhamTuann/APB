@@ -215,7 +215,8 @@ module i2c_slave_model (scl, sda);
 
 	                    if(rw)
 	                      begin
-	                          mem_do <= #1 mem[mem_adr];
+				mem_adr <= 0;
+	                          mem_do <= #1 mem[0];
 
 	                          if(debug)
 	                            begin
