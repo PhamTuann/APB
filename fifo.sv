@@ -1,7 +1,7 @@
 module fifomem
 #(
   parameter DATASIZE = 8, // Memory data word width
-  parameter ADDRSIZE = 3  // Number of mem address bits
+  parameter ADDRSIZE = 4  // Number of mem address bits
 )
 (
   input   write_enable, write_full, write_clk,
@@ -24,7 +24,7 @@ endmodule
 
 module rptr_empty
 #(
-  parameter ADDRSIZE = 3
+  parameter ADDRSIZE = 4
 )
 (
   input   read_enable, read_clk, read_reset_n,
@@ -66,7 +66,7 @@ endmodule
 
 module sync_r2w
 #(
-  parameter ADDRSIZE = 3
+  parameter ADDRSIZE = 4
 )
 (
   input   write_clk, write_reset_n,
@@ -84,7 +84,7 @@ endmodule
 
 module sync_w2r
 #(
-  parameter ADDRSIZE = 3
+  parameter ADDRSIZE = 4
 )
 (
   input   read_clk, read_reset_n,
@@ -104,7 +104,7 @@ endmodule
 
 module wptr_full
 #(
-  parameter ADDRSIZE = 3
+  parameter ADDRSIZE = 4
 )
 (
   input   write_enable, write_clk, write_reset_n,
@@ -148,7 +148,7 @@ endmodule
 module async_fifo
 #(
   parameter DATASIZE = 8,
-  parameter ADDRESSSIZE = 3
+  parameter ADDRESSSIZE = 4
  )
 (
   input   write_enable, write_clk, write_reset_n,//write_enable write enable signal
